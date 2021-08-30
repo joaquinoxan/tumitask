@@ -1,0 +1,24 @@
+.navbar {
+    background-color: rebeccapurple !important;
+}
+.btn-primary {
+    background-color: rebeccapurple;
+}
+.carousel-item {
+    height: 40rem;
+}
+.container-carousel {
+    padding-top: 5rem;
+}
+.footer-container {
+    color: white;
+    padding-top: 2rem;
+    padding-bottom: 7%;
+}
+.tumitask-footer {
+    background-color: rgb(80, 80, 80);
+}
+
+.modal-title, .form-label {
+    font-weight: bold;
+}
