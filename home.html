@@ -2,29 +2,36 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to Tumitask</title>
+    <title>Home: Tumitask</title>
 
     <!-- Iconos -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles/bootstrap_memoria.css" />
     <link rel="stylesheet" href="styles/general.css" />
+    <link rel="stylesheet" href="styles/taskcards.css" />
 </head>
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><i class="bi bi-clipboard-check" style="font-size: 2rem;"></i> Tumitask</a>
+        <a class="navbar-brand" href="home.html"><i class="bi bi-clipboard-check" style="font-size: 2rem;"></i> Tumitask</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
         </button>
         <form class="d-flex">
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Return to Front</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stats.html">Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Preferences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Logout</a>
+                    </li>
                     </div>
                 </li>
                 </ul>
@@ -33,7 +40,128 @@
         </div>
         </div>
     </nav>
-      
+
+     <!-- Barra de Busqueda -->
+    <div class="search-container">
+        <section class="search-bar-section border p-4 mb-4 d-flex justify-content-center align-items-center flex-column">
+            <div class="input-group mb-3">
+                <input type="text" id="search-fliter" class="form-control" placeholder="Search Tasks..." aria-label="Search" aria-describedby="button-addon2">
+                <button class="btn btn-primary" type="button" id="button-addon2" onclick="filterCards()">Search</button>
+                <div class="filter-container">
+                  <h5>Filters:</h5>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value=false id="hide-checkbox">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Hide Completed
+                    </label>
+                  </div>
+                </div>
+              </div>
+        </section>
+    </div>
+
+    <!-- Modal AddCard-->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="addModalLabel">Create Task</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="add-form">
+                <div class="mb-3">
+                  <label for="inputTitle" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="inputTitle" placeholder="Task title">
+                </div>
+                <div class="mb-3">
+                  <label for="inputText" class="form-label">Description</label>
+                  <textarea class="form-control" id="inputText" rows="3" placeholder="Write task description"></textarea>
+                </div>
+                <div class="d-grid">
+                  <button id="create-btn" class="btn btn-primary" data-bs-dismiss="modal" >Create</button>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- Modal EditCard-->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="editModalLabel">Edit Task</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form id="add-form">
+              <div class="mb-3">
+                <label for="inputEditTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="inputEditTitle" placeholder="Task title">
+              </div>
+              <div class="mb-3">
+                <label for="inputEditText" class="form-label">Description</label>
+                <textarea class="form-control" id="inputEditText" rows="3" placeholder="Write task description"></textarea>
+              </div>
+              <div class="d-grid">
+                <button id="save-btn" class="btn btn-primary" data-bs-dismiss="modal" >Save Changes</button>
+              </div>
+            </form>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Contenedor de Cateorias de Cards-->
+  <div class="row">
+    <div class="container col-4 category-container">
+        <div class="category-header">
+            <h3>Daily Tasks</h3>
+            <button type="button" id="daily-add-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" onclick="resetForm()"><i class="bi bi-plus-circle-dotted" style="font-size: 1.5rem;"></i></button>
+        </div>
+        <ul id="cardList-daily" class="list-group">    
+        </ul>
+    </div>
+    <div class="container col-4 category-container">
+        <div class="category-header">
+            <h3>Weekly Tasks</h3>
+            <button type="button" id="weekly-add-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" onclick="resetForm()"><i class="bi bi-plus-circle-dotted" style="font-size: 1.5rem;"></i></button>
+        </div>
+        <ul id="cardList-weekly" class="list-group">    
+        </ul>
+    </div>
+    <div class="container col-4 category-container">
+        <div class="category-header">
+            <h3>Monthly Tasks</h3>
+            <button type="button" id="monthly-add-btn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" onclick="resetForm()"><i class="bi bi-plus-circle-dotted" style="font-size: 1.5rem;"></i></button>
+        </div>
+        <ul id="cardList-monthly" class="list-group">    
+        </ul>
+    </div>
+  </div>
+  
+ <!-- Template de Contenedor-->
+    <div class="template-container">
+        <ul id="cardList-template" class="list-group">
+            <li class="task-card-template list-group-item">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Carta Template</div>
+                    <div class="card-body text-primary">
+                      <p class="card-text">Contenido template</p>
+                      <div class="task-options float-end">
+                        <span class="is-completed-check"><i class="status-icon bi bi-check-circle" style="font-size: 1.5rem;"></i></span>
+                        <span class="edit-task"><i class="bi bi-pencil-square" style="font-size: 1.5rem;" ></i></span>
+                        <span class="delete-task"><i class="bi bi-trash" style="font-size: 1.5rem;" ></i></span>
+                    </div>
+                    </div>
+                </div>    
+            </li>
+          </ul>
+    </div>
+
+
+    <!-- Generacion de Tasks y Cards  -->
+    <script src="scripts/taskcards.js"></script>      
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

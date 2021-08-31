@@ -6,6 +6,8 @@
 }
 .carousel-item {
     height: 40rem;
+    background-position: center;
+    background-size: cover;
 }
 .container-carousel {
     padding-top: 5rem;
@@ -22,3 +24,26 @@
 .modal-title, .form-label {
     font-weight: bold;
 }
+
+.search-container {
+    background-color: rgb(238 238 238);
+}
+
+.search-bar-section{
+    padding-right: 5rem !important;
+    padding-left: 5rem !important;
+}
+.category-header{
+    text-align: center;
+}
+.category-container{
+    box-shadow: 0px 5px 11px 0px rgba(0,0,0,0.47);
+    border: 2px solid rgba(91,91,91,0.41);
+    border-radius: 10px;
+}
+.filter-container{
+    margin-left: 1rem !important;
+}
+
+
+
