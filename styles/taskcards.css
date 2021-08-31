@@ -1,0 +1,15 @@
+.category-container{
+
+    box-shadow: rebeccapurple;
+    width: 23rem;
+    
+}
+
+.template-container{
+    display: none;
+}
+
+.task-completed{
+    text-decoration: line-through;
+    color: gray !important;
+}
